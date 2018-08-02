@@ -1,1 +1,86 @@
-/* You can add global styles to this file, and also import other style files */
+
+body{
+   margin: 0px;
+   padding: 0px;
+   background-color: grey;
+}
+
+/* The sidebar menu */
+.sidenav {
+   height: 100%; /* Full-height: remove this if you want "auto" height */
+   width: 60px; /* Set the width of the sidebar */
+   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+   z-index: 1; /* Stay on top */
+   top: 0; /* Stay at the top */
+   left: 0;
+   background-color: rgba(33, 118, 197); /* Black */
+   overflow-x: hidden; /* Disable horizontal scroll */
+   color: white;
+   /* border: solid 1px black; */
+}
+
+.sidenav > .icon {
+   height: 55px;
+   width: 60px;
+   padding: 5px;
+   /* border: solid 1px black; */
+}
+
+.main {
+   margin-left: 60px; /* same as sidebar width */
+   margin-top: 55px;
+}
+
+.topnav{
+   background-color:rgba(33, 118, 197);
+   color: white;
+   width: 100%;
+   /* border: solid 1px black; */
+   height: 55px;
+   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+   z-index: 1; /* Stay on top */
+   top: 0; /* Stay at the top */
+   left: 0px;
+   overflow-x: hidden; /* Disable horizontal scroll */
+
+}
+
+.topnav > .icon {
+   height: 55px;
+   width: 60px;
+   padding: 5px;
+   /* border: solid 1px black; */
+}
+
+.desk{
+   padding: 15px;
+}
+
+.wa{
+   background-color:rgb(226, 226, 226);
+   min-height: 85vh;
+} 
+
+.top-left{
+   width: 50%;
+   height: 50%;
+   border: .5px green solid;
+}
+
+.top-right{
+   width: 50%;
+   height: 50%;
+   border: .5px red solid;
+}
+
+.bottom-left{
+   width: 50%;
+   height: 50%;
+   border: .5px blue solid;
+}
+
+.bottom-right{
+   width: 50%;
+   height: 50%;
+   border: .5px yellow solid;
+}

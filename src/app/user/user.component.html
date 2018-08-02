@@ -1,0 +1,45 @@
+<!-- <div *ngFor="let user of users">
+  {{user.username}} | {{user.password}} | {{user._id}} |
+  <hr>
+</div> -->
+
+<h3> Sign Up </h3>
+
+<p *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</p>
+
+<form (ngSubmit)="signup()">
+
+  <label for="username-input"> Username</label>
+  <input id="username-input" type="text" placeholder="blah" [(ngModel)]="signUpInfo.username" name="usernameValue">
+  <br>
+
+  <label for="password-input"> Password </label>
+  <input id="password-input" type="password" placeholder="*****" [(ngModel)]="signUpInfo.password" name="passwordValue">
+  <br>
+
+  <button> Sign Up </button>
+</form>
+<p>Already have account?
+  <a [routerLink]="['/']">Log In</a>
+</p>
+
+<h3> Log In </h3>
+
+<p *ngIf="loginErrorMessage" class="error">
+  {{ loginErrorMessage }}
+</p>
+
+<form (ngSubmit)="doLogin()">
+  <label for="login-username-input"> Username </label>
+  <input id="login-username-input" type="text" placeholder="blah" [(ngModel)]="loginInfo.username" name="loginUsername">
+  <br>
+
+  <label for="login-pass-input"> Password </label>
+  <input id="login-pass-input" type="password" placeholder="*****" [(ngModel)]="loginInfo.password" name="loginPassword">
+  <br>
+
+  <button> Log In </button>
+</form>
+<p>Don't have account? <a [routerLink]="['/signup']">Doesnt work</a></p>

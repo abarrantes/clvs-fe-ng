@@ -1,0 +1,19 @@
+<form (submit)="createCompany()">
+
+<label for="nombre"></label>
+<input type="text" name="nombre" [(ngModel)]="companyToBeCreated.nombre">
+
+<label for="tipoId"></label>
+<input type="text" name=tipoId [(ngModel)]="companyToBeCreated.identificacion.tipo">
+
+<label for="numeroId"></label>
+<input type="text" name="numeroId" [(ngModel)]="companyToBeCreated.identificacion.numero">
+
+  <button>Create</button>
+
+</form>
+
+<div *ngFor="let company of companies">
+  {{company.nombre}} | {{company.identificacion.tipo}} | {{company.identificacion.numero}} | {{company.status}} | {{company._id}} |
+  <hr>
+</div>
