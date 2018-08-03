@@ -1,45 +1,60 @@
-<!-- <div *ngFor="let user of users">
-  {{user.username}} | {{user.password}} | {{user._id}} |
-  <hr>
-</div> -->
+<hr>
 
-<h3> Sign Up </h3>
+<h2>User : signup</h2>
 
-<p *ngIf="errorMessage" class="error">
-  {{ errorMessage }}
-</p>
+<div *ngIf="signupErrorMessage" class="alert alert-danger" role="alert">
+  {{ signupErrorMessage }}
+</div>
 
 <form (ngSubmit)="signup()">
 
-  <label for="username-input"> Username</label>
-  <input id="username-input" type="text" placeholder="blah" [(ngModel)]="signUpInfo.username" name="usernameValue">
-  <br>
+  <div class="form-group">
+    <label for="username-input"> Username</label>
+    <input class="form-control" [(ngModel)]="signUpInfo.username" name="usernameValue" id="username-input" type="text">
+  </div>
 
-  <label for="password-input"> Password </label>
-  <input id="password-input" type="password" placeholder="*****" [(ngModel)]="signUpInfo.password" name="passwordValue">
-  <br>
+  <div class="form-group">
+    <label for="password-input"> Password </label>
+    <input class="form-control" [(ngModel)]="signUpInfo.password" name="passwordValue" id="password-input" type="password">
+  </div>
 
-  <button> Sign Up </button>
+  <button class="btn btn-primary"> Sign Up </button>
 </form>
-<p>Already have account?
-  <a [routerLink]="['/']">Log In</a>
-</p>
 
-<h3> Log In </h3>
+<hr>
 
-<p *ngIf="loginErrorMessage" class="error">
+<h3>User : login</h3>
+
+<div *ngIf="loginErrorMessage" class="alert alert-danger" role="alert">
   {{ loginErrorMessage }}
-</p>
+</div>
 
-<form (ngSubmit)="doLogin()">
-  <label for="login-username-input"> Username </label>
-  <input id="login-username-input" type="text" placeholder="blah" [(ngModel)]="loginInfo.username" name="loginUsername">
-  <br>
+<form (ngSubmit)="login()">
 
-  <label for="login-pass-input"> Password </label>
-  <input id="login-pass-input" type="password" placeholder="*****" [(ngModel)]="loginInfo.password" name="loginPassword">
-  <br>
+  <div class="form-group">
+    <label for="login-username-input"> Username </label>
+    <input class="form-control" id="login-username-input" type="text" [(ngModel)]="loginInfo.username" name="loginUsername">
+  </div>
 
-  <button> Log In </button>
+  <div class="form-group">
+    <label for="login-pass-input"> Password </label>
+    <input class="form-control" id="login-pass-input" type="password" [(ngModel)]="loginInfo.password" name="loginPassword">
+  </div>
+
+  <button class="btn btn-primary"> Login </button>
 </form>
-<p>Don't have account? <a [routerLink]="['/signup']">Doesnt work</a></p>
+
+<hr>
+<h3>User : Read</h3>
+<div *ngFor="let user of users">
+  {{user.username}} | {{user.status}} | {{user._id}} |
+  <button (click)="toggleUserStatus(user._id)" *ngIf="user.status" class="btn btn-sm btn-danger">Deactivate</button>
+  <button (click)="toggleUserStatus(user._id)" *ngIf="!user.status" class="btn btn-sm btn-success">Activate</button> |
+  <hr>
+</div>
+<hr>
+
+<h3>Check Login</h3> <button (click)="checkLogin()" class="btn btn-primary">Check</button>
+<h3>Logout</h3> <button (click)="logout()" class="btn btn-primary">Logout</button>
+
+<hr>

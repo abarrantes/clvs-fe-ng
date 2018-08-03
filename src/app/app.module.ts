@@ -35,7 +35,7 @@ const routes:Routes = [
   },
   {
     path: 'item',
-    component: CustomerComponent
+    component: ItemComponent
   }
 ]
 

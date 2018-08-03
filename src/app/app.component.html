@@ -4,28 +4,31 @@
     <p></p>
   </div>
   <div class="icon d-flex">
-    <p>FC</p>
+    <a [routerLink]="['/user']">USR</a>
   </div>
   <div class="icon d-flex">
-    <p>NC</p>
+    <a [routerLink]="['/company']">CMP</a>
   </div>
   <div class="icon d-flex">
-    <p>ND</p>
+    <a [routerLink]="['/customer']">CST</a>
   </div>
   <div class="icon d-flex">
-    <p>RP</p>
+    <a [routerLink]="['/item']">ITM</a>
   </div>
 </div>
 
 <div class="topnav d-flex justify-content-end">
   <div class="icon d-flex">
-    <p>FC</p>
+    <a [routerLink]="['/user']">USR</a>
   </div>
   <div class="icon d-flex">
-    <p>NC</p>
+    <a [routerLink]="['/company']">CMP</a>
   </div>
   <div class="icon d-flex">
-      <a [routerLink]="['/user']">Users</a>
+    <a [routerLink]="['/customer']">CST</a>
+  </div>
+  <div class="icon d-flex">
+    <a [routerLink]="['/item']">ITM</a>
   </div>
 </div>
 
@@ -34,25 +37,15 @@
 
   <div class="desk">
     <div class="wa d-flex flex-wrap">
-      
-      <div class="top-left">
-        <h1>Users</h1>
-        <!-- <app-user></app-user> -->
+
+      <div class="left">
         <router-outlet></router-outlet>
       </div>
-
-      <div class="top-right">
-        <h1>Companies</h1>
+      
+      <div class="right">
+        <app-user></app-user>
         <app-company></app-company>
-      </div>
-
-      <div class="bottom-left">
-        <h1>Customers</h1>
         <app-customer></app-customer>
-      </div>
-
-      <div class="bottom-right">
-        <h1>Items</h1>
         <app-item></app-item>
       </div>
 

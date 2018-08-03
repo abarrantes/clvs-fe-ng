@@ -6,26 +6,17 @@ import { CompanyService } from '../services/company.service';
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.css']
 })
+
 export class CompanyComponent implements OnInit {
 
-  companyToBeCreated: any = {
-    nombre: "nombre desde angular",
-    identificacion: {
-      tipo: "a",
-      numero: 5,
-    }
+  constructor(private companyService: CompanyService) { }
+
+  ngOnInit() {
+    this.getCompanies();
   }
 
+  //this is where I load the companies to display them in a list
   companies: Array<any>;
-
-  createCompany() {
-    console.log('======================> createCompany() reached')
-    this.companyService.createCompanyInDb(this.companyToBeCreated)
-      .subscribe((responseFromDb) => {
-        console.log(responseFromDb)
-        this.getCompanies();
-      })
-  }
 
   getCompanies() {
     this.companyService.getCompaniesFromDb()
@@ -34,10 +25,36 @@ export class CompanyComponent implements OnInit {
       })
   }
 
-  constructor(private companyService: CompanyService) { }
+  companyToBeCreated: any = {
+    identificacion: {
+      tipo: "",
+      numero: null,
+    }
+  };
 
-  ngOnInit() {
-    this.getCompanies();
+  createCompanyErrorMessage: String = "";
+
+  //question: if I try to create a second customer I cante because customerToBeCreated is empty {}
+  createCompany() {
+    this.companyService.createCompanyInDb(this.companyToBeCreated)
+      .toPromise()
+      .then((res) => {
+        this.companyToBeCreated = {};
+        this.createCompanyErrorMessage = "";
+        this.getCompanies();
+      })
+      .catch((err) => {
+        this.createCompanyErrorMessage = err.json().message;
+      })
+  }
+
+  toggleCompanyStatus(id) {
+    this.companyService.changeCompanyStatusInDb(id)
+      .toPromise()
+      .then((response) => {
+        this.getCompanies();
+      })
+      .catch(err => console.log("=====error from toggleCompanyStatus: ", err))
   }
 
 }

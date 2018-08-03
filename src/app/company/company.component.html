@@ -1,19 +1,38 @@
+<hr>
+
+<h2>Company: Create</h2>
+
+<div *ngIf="createCompanyErrorMessage" class="alert alert-danger" role="alert">
+  {{createCompanyErrorMessage}}
+</div>
+
 <form (submit)="createCompany()">
 
-<label for="nombre"></label>
-<input type="text" name="nombre" [(ngModel)]="companyToBeCreated.nombre">
+  <div class="form-group">
+    <label for="nombre">Name</label>
+    <input class="form-control" type="text" name="nombre" [(ngModel)]="companyToBeCreated.nombre">
+  </div>
 
-<label for="tipoId"></label>
-<input type="text" name=tipoId [(ngModel)]="companyToBeCreated.identificacion.tipo">
+  <div class="form-group">
+    <label for="tipoId">Type of id</label>
+    <input class="form-control" type="text" name=tipoId [(ngModel)]="companyToBeCreated.identificacion.tipo">
+  </div>
 
-<label for="numeroId"></label>
-<input type="text" name="numeroId" [(ngModel)]="companyToBeCreated.identificacion.numero">
+  <div class="form-group">
+    <label for="numeroId">Id number</label>
+    <input class="form-control" type="text" name="numeroId" [(ngModel)]="companyToBeCreated.identificacion.numero">
+  </div>
 
-  <button>Create</button>
+  <button class="btn btn-primary">Create</button>
 
 </form>
+<hr>
 
+<h2>Company: Read</h2>
 <div *ngFor="let company of companies">
-  {{company.nombre}} | {{company.identificacion.tipo}} | {{company.identificacion.numero}} | {{company.status}} | {{company._id}} |
+  {{company.nombre}} | {{company.identificacion.tipo}} | {{company.identificacion.numero}} | {{company.status}} | {{company._id}}
+  |
+  <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Deactivate</button>
+  <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">Activate</button> |
   <hr>
 </div>
