@@ -20,23 +20,16 @@ import { CompanyComponent } from './company/company.component';
 import { UserService } from './services/user.service';
 import { UserComponent } from './user/user.component';
 
-const routes:Routes = [
-  {
-    path: 'user',
-    component: UserComponent
-  },
-  {
-    path: 'company',
-    component: CompanyComponent
-  },
-  {
-    path: 'customer',
-    component: CustomerComponent
-  },
-  {
-    path: 'item',
-    component: ItemComponent
-  }
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material';
+
+const routes: Routes = [
+  { path: 'user', component: UserComponent},
+  { path: 'user/login', component: UserComponent, data: { login: true } },
+  { path: 'company', component: CompanyComponent },
+  { path: 'customer', component: CustomerComponent },
+  { path: 'item', component: ItemComponent },
+  // { path: '**', component: PageNotFoundComponent }
 ]
 
 @NgModule({
@@ -51,9 +44,12 @@ const routes:Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    MatTooltipModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    // RouterModule.forRoot(routes, { enableTracing: true }) // If I wanto to debug the routing functionality 
   ],
-  providers: [ItemService,CustomerService,CompanyService,UserService],
+  providers: [ItemService, CustomerService, CompanyService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

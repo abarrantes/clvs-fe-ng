@@ -34,18 +34,22 @@ export class CustomerComponent implements OnInit {
 
   createCustomerErrorMessage: String = "";
 
-  //question: if I try to create a second customer I cante because customerToBeCreated is empty {}
   createCustomer() {
     this.customerService.createCustomerInDb(this.customerToBeCreated)
       .toPromise()
       .then((res) => {
-        this.customerToBeCreated = {};
-        this.createCustomerErrorMessage = "";
         this.getCustomers();
+        this.createCustomerErrorMessage = "";
       })
       .catch(err => {
         this.createCustomerErrorMessage = err.json().message;
       })
+    this.customerToBeCreated = {
+      identificacion: {
+        tipo: "",
+        numero: null,
+      }
+    }
   }
 
   toggleCustomerStatus(id) {

@@ -1,9 +1,37 @@
+<hr>
+
+<h2>Item: Create</h2>
+
+<div *ngIf="createItemErrorMessage" class="alert alert-danger" role="alert">
+  {{createItemErrorMessage}}
+</div>
+
+<form (submit)="createItem()">
+
+  <div class="form-group">
+    <label for="itemCode">Code</label>
+    <input class="form-control" type="text" name="itemCode" [(ngModel)]="itemToBeCreated.itemCode">
+  </div>
+
+  <div class="form-group">
+    <label for="itemName">Name</label>
+    <input class="form-control" type="text" name=itemName [(ngModel)]="itemToBeCreated.itemName">
+  </div>
+
+  <div class="form-group">
+    <label for="ownerComp">Owner Company</label>
+    <input class="form-control" type="text" name="ownerComp" [(ngModel)]="itemToBeCreated.ownerComp">
+  </div>
+
+  <button class="btn btn-primary">Create</button>
+
+</form>
+<hr>
+
+<h2>Item: Read</h2>
 <div *ngFor="let item of items">
-
-  {{item.itemCode}} |
-  {{item.itemName}} |
-  {{item.status}} |
-  {{item._id}} |
+  {{item.itemCode}} | {{item.itemName}} | {{item.status}} | {{item._id}} |
+  <button (click)="toggleItemStatus(item._id)" *ngIf="item.status" class="btn btn-sm btn-danger">Deactivate</button>
+  <button (click)="toggleItemStatus(item._id)" *ngIf="!item.status" class="btn btn-sm btn-success">Activate</button> |
   <hr>
-
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
+// import { Data } from '../entities/data';
 
 @Component({
   selector: 'app-user',
@@ -12,9 +14,25 @@ export class UserComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
+
+
+  loginForm:Boolean = false;
+  signupForm:Boolean = false;
+
   ngOnInit() {
     this.getUsers()
+    this.userService.checkLogin()
   }
+
+  toggleLogin(){
+    this.userService.toggleLogin()
+  }
+
+  toggleSignup(){
+    this.loginForm= false;
+    this.signupForm = true;
+  }
+
 
   //this is where I load the users to display them in a list
   users: any[];
@@ -32,17 +50,16 @@ export class UserComponent implements OnInit {
 
   signup() {
     this.userService.signup(this.signUpInfo)
-      .toPromise()
-      .then((res) => {
-        this.currentUser = res;
-        this.signUpInfo = {};
-        this.signupErrorMessage = ""
+      // .map((res) => {
+        // this.currentUser = res;
+        // this.signUpInfo = {};
+        // this.signupErrorMessage = ""
         this.getUsers();
         this.router.navigate(['/company']);
-      })
-      .catch((err) => {
-        this.signupErrorMessage = err.json().message;
-      })
+      // })
+      // .catch((err) => {
+        // this.signupErrorMessage = err.json().message;
+      // })
   }
 
   loginInfo: any = {} // use it to ngModel link the signup form
@@ -50,37 +67,15 @@ export class UserComponent implements OnInit {
 
   login() {
     this.userService.login(this.loginInfo)
-      .toPromise()
-      .then((res) => {
-        this.loginInfo = {};
+      // .toPromise()
+      // .then((res) => {
+        // this.loginInfo = {};
         this.getUsers();
         this.router.navigate(['/company']);
-      })
-      .catch((err) => {
-        this.loginErrorMessage = err.json().message;
-      })
-  }
-
-  checkLogin() {
-    this.userService.checkLogin()
-      .toPromise()
-      .then((res) => {
-        console.log("==========response: ", res);
-      })
-      .catch((err) => {
-        console.log("========error from checkLogin: ", err)
-      })
-  }
-
-  logout() {
-    this.userService.logout()
-      .toPromise()
-      .then((res) => {
-        console.log("==========response: ", res);
-      })
-      .catch((err) => {
-        console.log("========error from checkLogin: ", err)
-      })
+      // })
+      // .catch((err) => {
+        // this.loginErrorMessage = err.json().message;
+      // })
   }
 
   userId: String;
@@ -94,7 +89,6 @@ export class UserComponent implements OnInit {
       })
       .catch(err => console.log("=====error from toggleUserStatus: ", err))
   }
-
 }
 
 

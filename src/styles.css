@@ -1,5 +1,9 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
+*{
+    border-radius: 0px !important;
+}
+
 h5{
    color:#0b5290;
    color:#0d60aa;
@@ -28,7 +32,32 @@ body{
    /* border: solid 1px black; */
 }
 
-.sidenav > .icon {
+.topnav{
+    background-color:rgba(33, 118, 197);
+    color: white;
+    width: 100%;
+    /* border: solid 1px black; */
+    height: 55px;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0px;
+    overflow-x: hidden; /* Disable horizontal scroll */
+ }
+
+ .topnav-left{
+     padding-left: 65px;
+ }
+
+ .topnav-right{
+    padding-right: 15px;
+}
+ 
+ div > a {
+    color: white;
+ }
+ 
+.icon {
    height: 55px;
    width: 60px;
    padding: 5px;
@@ -40,33 +69,8 @@ body{
    margin-top: 55px;
 }
 
-.topnav{
-   background-color:rgba(33, 118, 197);
-   color: white;
-   width: 100%;
-   /* border: solid 1px black; */
-   height: 55px;
-   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-   z-index: 1; /* Stay on top */
-   top: 0; /* Stay at the top */
-   left: 0px;
-   overflow-x: hidden; /* Disable horizontal scroll */
-
-}
-
-.topnav > .icon {
-   height: 55px;
-   width: 60px;
-   padding: 5px;
-   /* border: solid 1px black; */
-} 
-
-div > a {
-   color: white;
-}
-
 .desk{
-   padding: 15px;
+   padding: 10px;
 }
 
 .wa{
@@ -74,7 +78,7 @@ div > a {
    min-height: 85vh;
 } 
 
-.left{
+/* .left{
    width: 50%;
    border: .5px green solid;
    padding-left: 50px;
@@ -86,4 +90,14 @@ div > a {
    border: .5px red solid;
    padding-left: 50px;
    padding-right: 50px;
+} */
+
+
+.userComponentDiv{
+    width: 400px;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

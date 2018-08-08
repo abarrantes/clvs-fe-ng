@@ -39,13 +39,18 @@ export class CompanyComponent implements OnInit {
     this.companyService.createCompanyInDb(this.companyToBeCreated)
       .toPromise()
       .then((res) => {
-        this.companyToBeCreated = {};
-        this.createCompanyErrorMessage = "";
         this.getCompanies();
+        this.createCompanyErrorMessage = "";
       })
       .catch((err) => {
         this.createCompanyErrorMessage = err.json().message;
       })
+    this.companyToBeCreated = {
+      identificacion: {
+        tipo: "",
+        numero: null,
+      }
+    }
   }
 
   toggleCompanyStatus(id) {
