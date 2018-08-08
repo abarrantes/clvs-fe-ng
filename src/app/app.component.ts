@@ -11,16 +11,9 @@ export class AppComponent {
 
   constructor(private userService:UserService){}
 
-  thisFormShowing:any;
-
-  
-  // toggleLogin(){
-  //   this.userService.toggleLogin()
-  // }
-  
+  theUserFromUser:any = {};
   
   ngOnInit() {
-    this.userService.checkLogin
-    this.userService.loginFormShowing.subscribe(res=>{this.thisFormShowing=res})
+    this.userService.theUserEmitter.subscribe(res=>{this.theUserFromUser=res})
   }
 }

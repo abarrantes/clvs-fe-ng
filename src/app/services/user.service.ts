@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { environment } from "../../environments/environment";
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -17,39 +18,118 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class UserService {
 
-  theUser = new BehaviorSubject('Eric');
+  theUserEmitter = new BehaviorSubject(null);
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
-  loginFormShowing = new BehaviorSubject(false)
 
-  toggleLogin(){
-   this.loginFormShowing.next(!this.loginFormShowing.getValue())
-   console.log(this.loginFormShowing.getValue())
+  ////////////////////// SIGNUP FORM /////////////////////////////
+
+  signupErrorMessageEmitter = new BehaviorSubject(null);
+
+  signup(credentials) {
+    console.log(credentials)
+    return this.http.post(`${environment.apiBase}/api/auth/signup`, credentials, { withCredentials: true })
+      .subscribe(
+        res => {
+          this.theUserEmitter.next(res.json())
+          this.signupErrorMessageEmitter.next(null)
+          this.router.navigate(['/']);
+        },
+        err => {
+          this.signupErrorMessageEmitter.next(JSON.parse(err._body).message)
+        }
+      )
   }
 
-  //1. functionality to be shared globally
+
+
+
+
+
+
+
+
+  ////////////////////// END SIGNUP FORM /////////////////////////////
+
+
+  ////////////////////// LOGIN FORM /////////////////////////////
+  loginErrorMessageEmitter = new BehaviorSubject(null);
+
+  login(credentials) {
+    return this.http.post(`${environment.apiBase}/api/auth/login`, credentials, { withCredentials: true })
+      .subscribe(
+        res => {
+          this.theUserEmitter.next(res.json())
+          this.loginErrorMessageEmitter.next(null)
+          this.router.navigate(['/']);
+        },
+        err => {
+          this.loginErrorMessageEmitter.next(JSON.parse(err._body).message)
+        }
+      )
+  }
+
+
+
+
+
+
+
+
+
+
+  ////////////////////// END LOGIN FORM /////////////////////////////
+
+
+  ////////////////////// USER MANAGEMENT /////////////////////////////
+
+  getUsersFromDb() {
+    return this.http.get(`${environment.apiBase}/api/auth/`, { withCredentials: true })
+      .map(res => res.json())
+  }
+
+
+
+  toggleUserStatus(id) {
+    return this.http.put(`${environment.apiBase}/api/auth/changeStatus/${id}`, {}, { withCredentials: true })
+      .map(res => res.json())
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////// END USER MANAGEMENT /////////////////////////////
+
+  ////////////////////// USER SERVICE UTILITIES /////////////////////////////
 
   checkLogin() {
     return this.http.get(`${environment.apiBase}/api/auth/loggedin`, { withCredentials: true })
-      // .map(res => res.json())
       .toPromise()
       .then((res) => {
-        this.theUser.next(res.json());
+        this.theUserEmitter.next(res.json());
         console.log("======== response from checklogin: ", res.json());
       })
       .catch((err) => {
-        this.theUser.next(null)
+        this.theUserEmitter.next(null)
         console.log("======== error from checkLogin: ", err)
       })
   }
 
   logout() {
     return this.http.post(`${environment.apiBase}/api/auth/logout`, {}, { withCredentials: true })
-      // .map(res => res.json())
       .toPromise()
       .then((res) => {
-        this.theUser.next(null)
+        this.theUserEmitter.next(null)
         console.log("======== response from logout: ", res);
       })
       .catch((err) => {
@@ -57,27 +137,6 @@ export class UserService {
       })
   }
 
-
-  //2. functionality specific to the user component
-
-  getUsersFromDb() {
-    return this.http.get(`${environment.apiBase}/api/auth/`, { withCredentials: true })
-      .map(res => res.json())
-  }
-
-  signup(credentials) {
-    return this.http.post(`${environment.apiBase}/api/auth/signup`, credentials, { withCredentials: true })
-      .subscribe(res => { this.theUser.next(res.json()) })
-  }
-
-  login(credentials) {
-    return this.http.post(`${environment.apiBase}/api/auth/login`, credentials, { withCredentials: true })
-      .subscribe(res => { this.theUser.next(res.json()) })
-  }
-
-  toggleUserStatus(id) {
-    return this.http.put(`${environment.apiBase}/api/auth/changeStatus/${id}`, {}, { withCredentials: true })
-      .map(res => res.json())
-  }
+  ////////////////////// END USER SERVICE UTILITIES /////////////////////////////
 
 }

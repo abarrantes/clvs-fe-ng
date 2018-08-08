@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
-
-// import { Data } from '../entities/data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -14,25 +12,83 @@ export class UserComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
+  theUser: any = {}
+  signupErrorMessage: any = {}
+  loginErrorMessage: any = {}
 
-
-  loginForm:Boolean = false;
+  loginForm:Boolean = true;
   signupForm:Boolean = false;
 
   ngOnInit() {
     this.getUsers()
-    this.userService.checkLogin()
+    this.userService.theUserEmitter.subscribe(res => { this.theUser = res })
+    this.userService.signupErrorMessageEmitter.subscribe(res => { this.signupErrorMessage = res })
+    this.userService.loginErrorMessageEmitter.subscribe(res => { this.loginErrorMessage = res })
   }
 
-  toggleLogin(){
-    this.userService.toggleLogin()
+
+  ////////////////////// SIGNUP FORM /////////////////////////////
+
+  signUpInfo: any = {};
+
+  signup() {
+    this.userService.signup(this.signUpInfo)
+    this.signUpInfo = {};
+    // this.router.navigate(['/company']);
   }
 
-  toggleSignup(){
-    this.loginForm= false;
+  switchToLoginForm(){
+    this.loginForm = true;
+    this.signupForm = false;
+  }
+
+
+
+
+
+
+
+
+
+  ////////////////////// END SIGNUP FORM /////////////////////////////
+
+
+
+  ////////////////////// LOGIN FORM /////////////////////////////
+
+  loginInfo: any = {}
+
+  login() {
+    this.userService.login(this.loginInfo)
+    this.loginInfo = {}
+    // this.router.navigate(['/company']);
+
+  }
+
+  switchToSignupForm(){
+    this.loginForm = false;
     this.signupForm = true;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////// END LOGIN FORM /////////////////////////////
+
+
+  ////////////////////// DISPLAY USERS /////////////////////////////
 
   //this is where I load the users to display them in a list
   users: any[];
@@ -42,40 +98,6 @@ export class UserComponent implements OnInit {
       .subscribe((usersFromDb) => {
         this.users = usersFromDb
       })
-  }
-
-  signUpInfo: any = {}; // use it to ngModel link the signup form
-  currentUser: any; // this is where I store the response
-  signupErrorMessage: String; // I use this to store an error if returned and display the error I get back in the html
-
-  signup() {
-    this.userService.signup(this.signUpInfo)
-      // .map((res) => {
-        // this.currentUser = res;
-        // this.signUpInfo = {};
-        // this.signupErrorMessage = ""
-        this.getUsers();
-        this.router.navigate(['/company']);
-      // })
-      // .catch((err) => {
-        // this.signupErrorMessage = err.json().message;
-      // })
-  }
-
-  loginInfo: any = {} // use it to ngModel link the signup form
-  loginErrorMessage: String;
-
-  login() {
-    this.userService.login(this.loginInfo)
-      // .toPromise()
-      // .then((res) => {
-        // this.loginInfo = {};
-        this.getUsers();
-        this.router.navigate(['/company']);
-      // })
-      // .catch((err) => {
-        // this.loginErrorMessage = err.json().message;
-      // })
   }
 
   userId: String;
@@ -89,6 +111,13 @@ export class UserComponent implements OnInit {
       })
       .catch(err => console.log("=====error from toggleUserStatus: ", err))
   }
+
+
+
+
+
+  ////////////////////// END DISPLAY USERS /////////////////////////////
+
 }
 
 

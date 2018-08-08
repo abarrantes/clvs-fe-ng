@@ -1,18 +1,8 @@
-<p>{{userService.theUser.username}}</p>
+<div class="userFormsDiv">
 
-<div class="icon d-flex justify-content-center align-items-center">
-    <a (click)="toggleLogin()" [routerLink]="['/user']" routerLinkActive="active">
-      <i class="material-icons md-36">directions_walk</i>
-    </a>
-  </div>
-
-<div class="userComponentDiv">
-
-
-  <div *ngIf="signupForm">
-
+  <div *ngIf="signupForm && !theUser">
     <br>
-    <h2>Signup</h2>
+    <h3>Please signup</h3>
 
     <div *ngIf="signupErrorMessage" class="alert alert-danger" role="alert">
       {{ signupErrorMessage }}
@@ -28,6 +18,9 @@
       <div class="form-group">
         <label for="password-input"> Password </label>
         <input class="form-control" [(ngModel)]="signUpInfo.password" name="passwordValue" id="password-input" type="password">
+        <p>if you've already registered please
+          <a (click)="switchToLoginForm()" [routerLink]="['/user']" routerLinkActive="active">login</a>
+        </p>
       </div>
 
       <button matTooltip="Info about the action" class="btn btn-primary"> Sign Up </button>
@@ -35,10 +28,9 @@
 
   </div>
 
-  <div *ngIf="loginForm">
-
+  <div *ngIf="loginForm && !theUser">
     <br>
-    <h3>Login</h3>
+    <h3>Please login</h3>
 
     <div *ngIf="loginErrorMessage" class="alert alert-danger" role="alert">
       {{ loginErrorMessage }}
@@ -54,25 +46,26 @@
       <div class="form-group">
         <label for="login-pass-input"> Password </label>
         <input class="form-control" id="login-pass-input" type="password" [(ngModel)]="loginInfo.password" name="loginPassword">
+        <p>if you're a new user please
+          <a (click)="switchToSignupForm()" [routerLink]="['/user']" routerLinkActive="active">signup</a>
+        </p>
       </div>
 
       <button class="btn btn-primary"> Login </button>
     </form>
 
   </div>
+</div>
 
-  <div *ngIf="userService.theUser">
+<div class="userListDiv" *ngIf="theUser">
+  <br>
+  <h3>Users</h3>
 
+  <div *ngFor="let user of users">
+    {{user.username}} | {{user.status}} | {{user._id}} |
+    <button (click)="toggleUserStatus(user._id)" *ngIf="user.status" class="btn btn-sm btn-danger">Deactivate</button>
+    <button (click)="toggleUserStatus(user._id)" *ngIf="!user.status" class="btn btn-sm btn-success">Activate</button> |
     <hr>
-    <h3>User : Read</h3>
-
-    <div *ngFor="let user of users">
-      {{user.username}} | {{user.status}} | {{user._id}} |
-      <button (click)="toggleUserStatus(user._id)" *ngIf="user.status" class="btn btn-sm btn-danger">Deactivate</button>
-      <button (click)="toggleUserStatus(user._id)" *ngIf="!user.status" class="btn btn-sm btn-success">Activate</button> |
-      <hr>
-    </div>
-
   </div>
 
 </div>

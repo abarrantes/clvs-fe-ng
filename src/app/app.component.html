@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<div class="sidenav d-flex flex-column">
+<div *ngIf="theUserFromUser" class="sidenav d-flex flex-column">
   <div class="icon d-flex">
     <p></p>
   </div>
@@ -38,49 +38,41 @@
       <i class="material-icons md-36">assessment</i>
     </a>
   </div>
-  <!-- <div class="icon d-flex justify-content-center align-items-center">
-    <a [routerLink]="['/']" routerLinkActive="active">
-      <i class="material-icons md-36">portrait</i>
-    </a>
-  </div>
-  <div class="icon d-flex justify-content-center align-items-center">
-    <a [routerLink]="['/']" routerLinkActive="active">
-      <i class="material-icons md-36">group</i>
-    </a>
-  </div> -->
+  <!-- <i class="material-icons md-36">portrait</i> -->
+  <!-- <i class="material-icons md-36">group</i> -->
 </div>
 
 
 <div class="topnav d-flex justify-content-between">
 
-<div class="topnav-left d-flex justify-content-start align-items-center">
-  <h3 *ngIf="userService.theUser">Welcome {{userService.theUser.username}}!</h3>
-</div>
-
-<div class="topnav-right d-flex justify-content-end">
-
-  <div class="icon d-flex justify-content-center align-items-center">
-    <a (click)="userService.checkLogin()" [routerLink]="['/']" routerLinkActive="active">
-      <i class="material-icons md-36">check</i>
-    </a>
-  </div>
-  <div class="icon d-flex justify-content-center align-items-center">
-    <a (click)="userService.logout()" [routerLink]="['/']" routerLinkActive="active">
-      <i class="material-icons md-36">close</i>
-    </a>
-  </div>
-  <div class="icon d-flex justify-content-center align-items-center">
-    <a (click)="toggleLogin()" [routerLink]="['/user']" routerLinkActive="active">
-      <i class="material-icons md-36">directions_walk</i>
-    </a>
-  </div>
-  <div *ngIf="thisFormShowing" class="icon d-flex justify-content-center align-items-center">
-    <a [routerLink]="['/user']" routerLinkActive="active">
-      <i class="material-icons md-36">account_circle</i>
-    </a>
+  <div class="topnav-left d-flex justify-content-start align-items-center">
+    <h3 *ngIf="theUserFromUser">Welcome {{theUserFromUser.username}}!</h3>
   </div>
 
-</div>
+  <div class="topnav-right d-flex justify-content-end">
+
+    <div class="icon d-flex justify-content-center align-items-center">
+      <a (click)="userService.checkLogin()" [routerLink]="['/']" routerLinkActive="active">
+        <i class="material-icons md-36">check</i>
+      </a>
+    </div>
+    <div class="icon d-flex justify-content-center align-items-center">
+      <a (click)="userService.logout()" [routerLink]="['/']" routerLinkActive="active">
+        <i class="material-icons md-36">close</i>
+      </a>
+    </div>
+    <div *ngIf="!theUserFromUser" class="icon d-flex justify-content-center align-items-center">
+      <a [routerLink]="['/user']" routerLinkActive="active">
+        <i class="material-icons md-36">directions_walk</i>
+      </a>
+    </div>
+    <div *ngIf="theUserFromUser" class="icon d-flex justify-content-center align-items-center">
+      <a [routerLink]="['/user']" routerLinkActive="active">
+        <i class="material-icons md-36">account_circle</i>
+      </a>
+    </div>
+
+  </div>
 
 </div>
 
@@ -92,18 +84,6 @@
       <div>
         <router-outlet></router-outlet>
       </div>
-
-      <!-- <div class="left">
-        <router-outlet></router-outlet>
-      </div>
-
-      <div class="right">
-        <app-user></app-user>
-        <app-company></app-company>
-        <app-customer></app-customer>
-        <app-item></app-item>
-      </div> -->
-
     </div>
   </div>
 
