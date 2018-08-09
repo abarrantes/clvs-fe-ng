@@ -1,4 +1,4 @@
-<div *ngIf="createCompForm" class="createCompForm">
+<div *ngIf="createCompForm" class="createCompFormDiv">
   <br>
   <h3>Create company</h3>
 
@@ -6,7 +6,7 @@
     {{createCompanyErrorMessage}}
   </div>
 
-  <form (submit)="createCompany()">
+  <form class="d-flex flex-column" (submit)="createCompany()">
 
     <div class="form-group">
       <label for="nombre">Name</label>
@@ -23,24 +23,32 @@
   </form>
 </div>
 
-<div class="compsList">
+<div *ngIf="compsList" class="compsListDiv">
   <br>
   <h3>Companies:</h3>
-  {{theUser.activeComp}}
-  <br>
+  {{theUser.activeComp}} - {{theUser._id}}
+  <br><br>
+
   <div class="d-flex" *ngFor="let company of companies">
 
     <!-- buttons to select, inactive for currectly selected company -->
     <div class="fs">
-      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-primary">Select</button>
-      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-primary"
+      <button (click)="userService.selectComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-primary">Select</button>
+      <button (click)="userService.selectComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-primary"
         disabled>Select</button>
     </div>
 
-    <!--  buttons to activate o deactivate -->
+    <!--  buttons to activate or deactivate -->
     <div class="fs">
       <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Deactivate</button>
       <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">Activate</button>
+    </div>
+
+    <!--  buttons to assign -->
+    <div class="fs">
+      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Assign</button>
+      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-success"
+        disabled>Nothing</button>
     </div>
 
     <div class="fs">
@@ -60,4 +68,10 @@
     </div>
     <hr>
   </div>
+
+  <br>
+  <button (click)="switchToCreateCompForm()" *ngIf="!createCompForm" class="btn btn-sm btn-success">Create company</button>
+  <br>
+  <br>
+
 </div>

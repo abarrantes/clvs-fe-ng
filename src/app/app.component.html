@@ -3,21 +3,21 @@
   <div class="icon d-flex">
     <p></p>
   </div>
-  <div class="icon d-flex justify-content-center align-items-center">
+  <!-- <div class="icon d-flex justify-content-center align-items-center">
     <a [routerLink]="['/']" routerLinkActive="active">
       <i class="material-icons md-36">home</i>
     </a>
-  </div>
+  </div> -->
   <div class="icon d-flex justify-content-center align-items-center">
     <a [routerLink]="['/company']" routerLinkActive="active">
       <i class="material-icons md-36">business</i>
     </a>
   </div>
-  <div class="icon d-flex justify-content-center align-items-center">
+  <!-- <div class="icon d-flex justify-content-center align-items-center">
     <a [routerLink]="['/user']" routerLinkActive="active">
       <i class="material-icons md-36">person_outline</i>
     </a>
-  </div>
+  </div> -->
   <div class="icon d-flex justify-content-center align-items-center">
     <a [routerLink]="['/customer']" routerLinkActive="active">
       <i class="material-icons md-36">people_outline </i>
@@ -29,7 +29,7 @@
     </a>
   </div>
   <div class="icon d-flex justify-content-center align-items-center">
-    <a [routerLink]="['/']" routerLinkActive="active">
+    <a [routerLink]="['/invoice']" routerLinkActive="active">
       <i class="material-icons md-36">description</i>
     </a>
   </div>
@@ -46,7 +46,7 @@
 <div class="topnav d-flex justify-content-between">
 
   <div class="topnav-left d-flex justify-content-start align-items-center">
-    <h3 *ngIf="theUserFromUser">Welcome {{theUserFromUser.username}}!</h3>
+    <h3 *ngIf="theUserFromUser">Current user: {{theUserFromUser.username}}</h3>
   </div>
 
   <div class="topnav-right d-flex justify-content-end">

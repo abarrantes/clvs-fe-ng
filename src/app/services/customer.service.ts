@@ -12,8 +12,8 @@ export class CustomerService {
 
   constructor(private http: Http) { }
 
-  getCustomersFromDb() {
-    return this.http.get(`${environment.apiBase}/api/cust/`, { withCredentials: true })
+  getCustomersFromDb(activeComp) {
+    return this.http.get(`${environment.apiBase}/api/cust/${activeComp}`, { withCredentials: true })
       .map((res) => res.json());
   }
 

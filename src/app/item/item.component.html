@@ -1,37 +1,64 @@
-<hr>
+<div *ngIf="createItemForm" class="createItemFormDiv">
+  <br>
+  <h3>Create item</h3>
 
-<h2>Item: Create</h2>
+  <div *ngIf="createItemErrorMessage" class="alert alert-danger" role="alert">
+    {{createItemErrorMessage}}
+  </div>
 
-<div *ngIf="createItemErrorMessage" class="alert alert-danger" role="alert">
-  {{createItemErrorMessage}}
+  <form class="d-flex flex-column" (submit)="createItem()">
+
+    <div class="form-group">
+      <label for="itemCode">Code</label>
+      <input class="form-control" type="text" name="itemCode" [(ngModel)]="itemToBeCreated.itemCode">
+    </div>
+
+    <div class="form-group">
+      <label for="itemName">Name</label>
+      <input class="form-control" type="text" name=itemName [(ngModel)]="itemToBeCreated.itemName">
+    </div>
+
+    <button class="btn btn-primary">Create</button>
+
+  </form>
 </div>
 
-<form (submit)="createItem()">
+<div *ngIf="itemList" class="itemListDiv">
+  <br>
+  <h3>Items:</h3>
+  Active comp:{{theUser.activeComp}} - UserId: {{theUser._id}}
+  <br>
+  <br>
 
-  <div class="form-group">
-    <label for="itemCode">Code</label>
-    <input class="form-control" type="text" name="itemCode" [(ngModel)]="itemToBeCreated.itemCode">
+  <div class="d-flex" *ngFor="let item of items">
+
+    <!--  buttons to activate or deactivate -->
+    <div class="fs">
+      <button (click)="toggleItemStatus(item._id)" *ngIf="item.status" class="btn btn-sm btn-danger">Deactivate</button>
+      <button (click)="toggleItemStatus(item._id)" *ngIf="!item.status" class="btn btn-sm btn-success">Activate</button>
+    </div>
+
+    <div class="fs">
+      {{item.status}}
+    </div>
+
+    <div class="fs">
+      {{item.itemCode}}
+    </div>
+
+    <div class="fl">
+      {{item.itemName}}
+    </div>
+
+    <div class="fl">
+      {{item._id}}
+    </div>
+
   </div>
 
-  <div class="form-group">
-    <label for="itemName">Name</label>
-    <input class="form-control" type="text" name=itemName [(ngModel)]="itemToBeCreated.itemName">
-  </div>
+  <br>
+  <button (click)="switchToCreateCustForm()" *ngIf="!createCustForm" class="btn btn-sm btn-success">Create item</button>
+  <br>
+  <br>
 
-  <div class="form-group">
-    <label for="ownerComp">Owner Company</label>
-    <input class="form-control" type="text" name="ownerComp" [(ngModel)]="itemToBeCreated.ownerComp">
-  </div>
-
-  <button class="btn btn-primary">Create</button>
-
-</form>
-<hr>
-
-<h2>Item: Read</h2>
-<div *ngFor="let item of items">
-  {{item.itemCode}} | {{item.itemName}} | {{item.status}} | {{item._id}} |
-  <button (click)="toggleItemStatus(item._id)" *ngIf="item.status" class="btn btn-sm btn-danger">Deactivate</button>
-  <button (click)="toggleItemStatus(item._id)" *ngIf="!item.status" class="btn btn-sm btn-success">Activate</button> |
-  <hr>
 </div>

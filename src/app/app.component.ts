@@ -15,5 +15,6 @@ export class AppComponent {
   
   ngOnInit() {
     this.userService.theUserEmitter.subscribe(res=>{this.theUserFromUser=res})
+    this.userService.checkLogin()
   }
 }

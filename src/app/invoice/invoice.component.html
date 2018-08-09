@@ -1,0 +1,144 @@
+<div *ngIf="createInvoiceForm" class="createInvoiceFormDiv">
+  <br>
+
+
+  <div>
+    <h3>Create invoice</h3>
+    <br>
+  </div>
+
+  <form (submit)="createInvoice()">
+
+    <div class="d-flex justify-content-between masters">
+
+      <!-- <div>
+        <label for="orderNumber">Order number</label>
+        <input type="text" class="form-control" id="orderNumber" name="orderNumber" readonly="readonly">
+      </div> -->
+      <div>
+        <label for="identificacion">Identificacion</label>
+        <select class="form-control" id="identificacion" name="identificacion" [(ngModel)]="invoiceToBeCreated.identificacion">
+          <option>C0001</option>
+          <option>C0002</option>
+        </select>
+      </div>
+      <div>
+        <label for="nombre">nombre</label>
+        <input type="text" class="form-control" id="nombre" name="Nombre" [(ngModel)]="invoiceToBeCreated.nombre">
+      </div>
+      <div>
+        <label for="total">Total</label>
+        <input type="number" class="form-control" id="total" name="total" [(ngModel)]="invoiceToBeCreated.total">
+      </div>
+      <div>
+        <!-- <label for="numberOfLines">NL</label>
+        <input type="number" class="form-control" id="numberOfLines" name="numberOfLines" [(ngModel)]="numberOfLines" readonly="readonly"> -->
+      </div>
+      <div>
+        <!-- space holder -->
+      </div>
+      <div>
+        <!-- space holder -->
+      </div>
+
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div id="columnHeaders" class="d-flex justify-content-between columnHeaders">
+
+      <div>
+        <label for="itemCode">Item code</label>
+      </div>
+      <div>
+        <label for="itemName">Item name</label>
+      </div>
+      <div>
+        <label for="itemQuatity">Quantity</label>
+      </div>
+      <div>
+        <label for="itemPrice">Price</label>
+      </div>
+      <div>
+        <label for="lineTotal">Total</label>
+      </div>
+      <div>
+        <label>Line actions</label>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div *ngFor="let line of invoiceToBeCreated.lines" class="d-flex justify-content-between orderLines">
+
+      <div>
+        <select class="form-control" name="itemCode" [(ngModel)]="line.itemCode">
+          <option>I001</option>
+          <option>I002</option>
+        </select>
+      </div>
+      <div>
+        <input type="text" class="form-control" name="itemName" [(ngModel)]="line.itemName">
+      </div>
+      <div>
+        <input type="number" class="form-control calcTriger" name="itemQuantity" [(ngModel)]="line.itemQuantity">
+      </div>
+      <div>
+        <input type="number" class="form-control calcTriger" name="itemPrice" [(ngModel)]="line.itemPrice">
+      </div>
+      <div>
+        <input type="number" class="form-control" name="lineTotal" [(ngModel)]="line.lineTotal">
+      </div>
+      <div>
+        <button type="button" class="btn btn-success btn-sm btnAddLIne">+0</button>
+        <button type="button" class="btn btn-danger btn-sm btnDeleteLine">-0</button>
+      </div>
+
+    </div>
+    <hr>
+
+    <br id="endLinesRows">
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+
+  </form>
+</div>
+<br>
+<br>
+
+
+<div *ngIf="invoiceList" class="invoiceListDiv">
+  <br>
+  <h3>Invoices:</h3>
+  Active comp:{{theUser.activeComp}} - UserId: {{theUser._id}}
+  <br>
+  <br>
+
+  <div class="row">
+    <!-- <div class="col-md-3">Invoice number</div> -->
+    <div class="col-md-4">Identificacion</div>
+    <div class="col-md-4">Nombre</div>
+    <div class="col-md-4">Total</div>
+  </div>
+
+  <hr>
+
+  <div *ngFor="let invoice of invoices">
+
+    <div  class="row">
+      <!-- <div class="col-md-3">{{invoice.invoiceNumber}}</div> -->
+      <div class="col-md-4">{{invoice.identificacion}}</div>
+      <div class="col-md-4">{{invoice.nombre}}</div>
+      <div class="col-md-4">{{invoice.total}}</div>
+    </div>
+    <hr>
+  </div>
+    
+  <br>
+  <button (click)="switchToCreateInvoiceForm()" *ngIf="!createInvoiceForm" class="btn btn-sm btn-success">Create invoice</button>
+  <br>
+  <br>
+
+</div>

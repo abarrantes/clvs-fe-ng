@@ -1,43 +1,63 @@
-<hr>
-
-<h2>Customer: Create</h2>
+<div *ngIf="createCustForm" class="createCustFormDiv">
+  <br>
+  <h3>Create customer</h3>
 
   <div *ngIf="createCustomerErrorMessage" class="alert alert-danger" role="alert">
     {{createCustomerErrorMessage}}
   </div>
 
-<form (submit)="createCustomer()">
+  <form class="d-flex flex-column" (submit)="createCustomer()">
 
-  <div class="form-group">
-    <label for="nombre">Name</label>
-    <input class="form-control" type="text" name="nombre" [(ngModel)]="customerToBeCreated.nombre">
+    <div class="form-group">
+      <label for="nombre">Name</label>
+      <input class="form-control" type="text" name="nombre" [(ngModel)]="customerToBeCreated.nombre">
+    </div>
+
+    <div class="form-group">
+      <label for="tipoId">Identificacion</label>
+      <input class="form-control" type="text" name=tipoId [(ngModel)]="customerToBeCreated.identificacion">
+    </div>
+
+    <button class="btn btn-primary">Create</button>
+
+  </form>
+</div>
+
+
+<div *ngIf="custList" class="custListDiv">
+  <br>
+  <h3>Customers:</h3>
+  Active comp:{{theUser.activeComp}} - UserId: {{theUser._id}}
+  <br>
+  <br>
+  <div class="d-flex" *ngFor="let customer of customers">
+
+    <!--  buttons to activate or deactivate -->
+    <div class="fs">
+      <button (click)="toggleCustomerStatus(customer._id)" *ngIf="customer.status" class="btn btn-sm btn-danger">Deactivate</button>
+      <button (click)="toggleCustomerStatus(customer._id)" *ngIf="!customer.status" class="btn btn-sm btn-success">Activate</button>
+    </div>
+
+    <div class="fs">
+      {{customer.status}}
+    </div>
+
+    <div class="fs">
+      {{customer.identificacion}}
+    </div>
+
+    <div class="fl">
+      {{customer.nombre}}
+    </div>
+
+    <div class="fl">
+      {{customer._id}}
+    </div>
+    
   </div>
+  <br>
+  <button (click)="switchToCreateCustForm()" *ngIf="!createCustForm" class="btn btn-sm btn-success">Create customer</button>
+  <br>
+  <br>
 
-  <div class="form-group">
-    <label for="tipoId">Type of id</label>
-    <input class="form-control" type="text" name=tipoId [(ngModel)]="customerToBeCreated.identificacion.tipo">
-  </div>
-
-  <div class="form-group">
-    <label for="numeroId">Id number</label>
-    <input class="form-control" type="text" name="numeroId" [(ngModel)]="customerToBeCreated.identificacion.numero">
-  </div>
-
-  <div class="form-group">
-    <label for="ownerComp">Owner Company</label>
-    <input class="form-control" type="text" name="ownerComp" [(ngModel)]="customerToBeCreated.ownerComp">
-  </div>
-
-  <button class="btn btn-primary">Create</button>
-
-</form>
-<hr>
-
-<h2>Customer: Read</h2>
-<div *ngFor="let customer of customers">
-  {{customer.nombre}} | {{customer.identificacion.tipo}} | {{customer.identificacion.numero}} | {{customer.status}} | {{customer._id}}
-  |
-  <button (click)="toggleCustomerStatus(customer._id)" *ngIf="customer.status" class="btn btn-sm btn-danger">Deactivate</button>
-  <button (click)="toggleCustomerStatus(customer._id)" *ngIf="!customer.status" class="btn btn-sm btn-success">Activate</button> |
-  <hr>
 </div>

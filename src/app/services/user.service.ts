@@ -90,13 +90,40 @@ export class UserService {
       .map(res => res.json())
   }
 
-
-
   toggleUserStatus(id) {
     return this.http.put(`${environment.apiBase}/api/auth/changeStatus/${id}`, {}, { withCredentials: true })
       .map(res => res.json())
   }
 
+  assignComp(userId, compId) {
+    console.log(userId);
+    console.log(compId);
+    console.log(`${environment.apiBase}/api/auth/addCompany/${userId}`)
+    return this.http.put(`${environment.apiBase}/api/auth/addCompany/${userId}`, {compId}, { withCredentials: true })
+    .toPromise()
+    .then((res) => {
+      // this.theUserEmitter.next(null)
+      console.log("======== response from logout: ", res);
+    })
+    .catch((err) => {
+      console.log("======== error from logout: ", err)
+    })
+  }
+
+  selectComp(userId, compId) {
+    console.log(userId);
+    console.log(compId);
+    console.log(`${environment.apiBase}/api/auth/selectCompany/${userId}`)
+    return this.http.put(`${environment.apiBase}/api/auth/selectCompany/${userId}`, compId, { withCredentials: true })
+    // .toPromise()
+    // .then((res) => {
+    //   this.theUserEmitter.next(null)
+    //   console.log("======== response from logout: ", res);
+    // })
+    // .catch((err) => {
+    //   console.log("======== error from logout: ", err)
+    // })
+  }
 
 
 
@@ -138,20 +165,6 @@ export class UserService {
       })
   }
 
-  assignComp(userId,compId) {
-    console.log(userId);
-    console.log(compId);
-    console.log(`${environment.apiBase}/api/auth/selectCompany/${userId}`)
-    return this.http.put(`${environment.apiBase}/api/auth/selectCompany/${userId}`, compId, { withCredentials: true })
-    // .toPromise()
-    // .then((res) => {
-    //   this.theUserEmitter.next(null)
-    //   console.log("======== response from logout: ", res);
-    // })
-    // .catch((err) => {
-    //   console.log("======== error from logout: ", err)
-    // })
-  }
 
 
   ////////////////////// END USER SERVICE UTILITIES /////////////////////////////

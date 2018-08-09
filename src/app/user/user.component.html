@@ -61,10 +61,44 @@
   <br>
   <h3>Users</h3>
 
-  <div *ngFor="let user of users">
-    {{user.username}} | {{user.status}} | {{user._id}} |
-    <button (click)="toggleUserStatus(user._id)" *ngIf="user.status" class="btn btn-sm btn-danger">Deactivate</button>
-    <button (click)="toggleUserStatus(user._id)" *ngIf="!user.status" class="btn btn-sm btn-success">Activate</button> |
+  <div class="d-flex">
+
+    <div class="fs">
+      <p></p>
+    </div>
+    <div class="fl">
+      <p>Name</p>
+    </div>
+    <div class="fs">
+      <p>Status</p>
+    </div>
+    <div class="fl">
+      <p>UserId</p>
+    </div>
+    <div class="fl">
+      <p>ActiveComp</p>
+    </div>
+  </div>
+  <hr>
+
+  <div class="d-flex" *ngFor="let user of users">
+
+    <div class="fs">
+      <button (click)="toggleUserStatus(user._id)" *ngIf="user.status" class="btn btn-sm btn-danger">Deactivate</button>
+      <button (click)="toggleUserStatus(user._id)" *ngIf="!user.status" class="btn btn-sm btn-success">Activate</button>
+    </div>
+    <div class="fl">
+      {{user.username}}
+    </div>
+    <div class="fs">
+      {{user.status}}
+    </div>
+    <div class="fl">
+      {{user._id}}
+    </div>
+    <div class="fl">
+      {{user.activeComp}}
+    </div>
     <hr>
   </div>
 

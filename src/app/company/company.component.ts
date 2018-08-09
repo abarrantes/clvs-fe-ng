@@ -32,8 +32,6 @@ export class CompanyComponent implements OnInit {
       })
   }
 
-
-
   toggleCompanyStatus(id) {
     this.companyService.changeCompanyStatusInDb(id)
       .toPromise()
@@ -43,9 +41,15 @@ export class CompanyComponent implements OnInit {
       .catch(err => console.log("=====error from toggleCompanyStatus: ", err))
   }
 
+  switchToCreateCompForm(){
+    this.createCompForm = true;
+    this.compsList = false;
+  }
 
-
-
+  switchToCompsList(){
+    this.createCompForm = false;
+    this.compsList = true;
+  }
 
   ////////////////////// END COMPANIES LIST /////////////////////////////
 
@@ -53,16 +57,15 @@ export class CompanyComponent implements OnInit {
   ////////////////////// CREATE COMPANY FORM /////////////////////////////
 
   companyToBeCreated: any = {};
-
   createCompanyErrorMessage: String = "";
 
-  //question: if I try to create a second customer I cante because customerToBeCreated is empty {}
   createCompany() {
     this.companyService.createCompanyInDb(this.companyToBeCreated)
       .toPromise()
       .then((res) => {
         this.getCompanies();
         this.createCompanyErrorMessage = "";
+        this.switchToCompsList()
       })
       .catch((err) => {
         this.createCompanyErrorMessage = err.json().message;

@@ -22,13 +22,15 @@ import { UserComponent } from './user/user.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 const routes: Routes = [
   { path: 'user', component: UserComponent},
-  { path: 'user/login', component: UserComponent, data: { login: true } },
   { path: 'company', component: CompanyComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'item', component: ItemComponent },
+  { path: 'invoice', component: InvoiceComponent },
+
   // { path: '**', component: PageNotFoundComponent }
 ]
 
@@ -39,6 +41,7 @@ const routes: Routes = [
     CustomerComponent,
     CompanyComponent,
     UserComponent,
+    InvoiceComponent,
   ],
   imports: [
     BrowserModule,

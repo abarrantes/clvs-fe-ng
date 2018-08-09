@@ -74,7 +74,8 @@ body{
 }
 
 .wa{
-   background-color:rgba(226, 226, 226, 0.815);
+   /* background-color: rgba(226, 226, 226, 0.815); */
+   background-color: whitesmoke;
    min-height: 85vh;
 } 
 
@@ -83,7 +84,51 @@ body{
 }
 
 .userListDiv{
-    width: 700px;
+    width: 1000px;
+}
+
+.createCompFormDiv{
+    width: 400px;   
+}
+
+.compsListDiv{
+    width: 1000px;
+}
+
+.createCustFormDiv{
+    width: 400px;   
+}
+
+.custListDiv{
+    width: 1000px;
+}
+
+.createItemFormDiv{
+    width: 400px;   
+}
+
+.itemListDiv{
+    width: 1000px;
+}
+
+.createInvoiceFormDiv{
+    width: 1100px;   
+}
+
+.invoiceListDiv{
+    width: 1000px;
+}
+
+.masters > div{
+    width: 180px;   
+}
+
+.columnHeaders > div{
+    width: 180px;   
+}
+
+.orderLines > div {
+    width: 180px;
 }
 
 .material-icons.md-18 { font-size: 18px; }
@@ -91,10 +136,15 @@ body{
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
-.fs{
+.fs {
     width: 100px;
 }
 
-.fl{
+.fl {
     width: 250px;
 }
+  
+hr {
+margin: 5px;
+}
+
