@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 
 export class UserService {
 
+
   theUserEmitter = new BehaviorSubject(null);
 
   constructor(private http: Http, private router: Router) { }
@@ -136,6 +137,22 @@ export class UserService {
         console.log("======== error from logout: ", err)
       })
   }
+
+  assignComp(userId,compId) {
+    console.log(userId);
+    console.log(compId);
+    console.log(`${environment.apiBase}/api/auth/selectCompany/${userId}`)
+    return this.http.put(`${environment.apiBase}/api/auth/selectCompany/${userId}`, compId, { withCredentials: true })
+    // .toPromise()
+    // .then((res) => {
+    //   this.theUserEmitter.next(null)
+    //   console.log("======== response from logout: ", res);
+    // })
+    // .catch((err) => {
+    //   console.log("======== error from logout: ", err)
+    // })
+  }
+
 
   ////////////////////// END USER SERVICE UTILITIES /////////////////////////////
 

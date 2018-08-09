@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../services/company.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-company',
@@ -9,13 +10,19 @@ import { CompanyService } from '../services/company.service';
 
 export class CompanyComponent implements OnInit {
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService, private userService: UserService) { }
+
+  theUser: any = {}
+
+  createCompForm: Boolean = false;
+  compsList: Boolean = true;
 
   ngOnInit() {
-    this.getCompanies();
+    this.getCompanies()
+    this.userService.theUserEmitter.subscribe(res => { this.theUser = res })
   }
 
-  //this is where I load the companies to display them in a list
+  ////////////////////// COMPANIES LIST /////////////////////////////
   companies: Array<any>;
 
   getCompanies() {
@@ -25,12 +32,27 @@ export class CompanyComponent implements OnInit {
       })
   }
 
-  companyToBeCreated: any = {
-    identificacion: {
-      tipo: "",
-      numero: null,
-    }
-  };
+
+
+  toggleCompanyStatus(id) {
+    this.companyService.changeCompanyStatusInDb(id)
+      .toPromise()
+      .then((response) => {
+        this.getCompanies();
+      })
+      .catch(err => console.log("=====error from toggleCompanyStatus: ", err))
+  }
+
+
+
+
+
+  ////////////////////// END COMPANIES LIST /////////////////////////////
+
+
+  ////////////////////// CREATE COMPANY FORM /////////////////////////////
+
+  companyToBeCreated: any = {};
 
   createCompanyErrorMessage: String = "";
 
@@ -45,21 +67,11 @@ export class CompanyComponent implements OnInit {
       .catch((err) => {
         this.createCompanyErrorMessage = err.json().message;
       })
-    this.companyToBeCreated = {
-      identificacion: {
-        tipo: "",
-        numero: null,
-      }
-    }
+    this.companyToBeCreated = {};
   }
 
-  toggleCompanyStatus(id) {
-    this.companyService.changeCompanyStatusInDb(id)
-      .toPromise()
-      .then((response) => {
-        this.getCompanies();
-      })
-      .catch(err => console.log("=====error from toggleCompanyStatus: ", err))
-  }
 
+
+  
+  ////////////////////// END CREATE COMPANY FORM /////////////////////////////
 }

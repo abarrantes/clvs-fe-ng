@@ -1,38 +1,63 @@
-<hr>
+<div *ngIf="createCompForm" class="createCompForm">
+  <br>
+  <h3>Create company</h3>
 
-<h2>Company: Create</h2>
+  <div *ngIf="createCompanyErrorMessage" class="alert alert-danger" role="alert">
+    {{createCompanyErrorMessage}}
+  </div>
 
-<div *ngIf="createCompanyErrorMessage" class="alert alert-danger" role="alert">
-  {{createCompanyErrorMessage}}
+  <form (submit)="createCompany()">
+
+    <div class="form-group">
+      <label for="nombre">Name</label>
+      <input class="form-control" type="text" name="nombre" [(ngModel)]="companyToBeCreated.nombre">
+    </div>
+
+    <div class="form-group">
+      <label for="tipoId">Identificacion</label>
+      <input class="form-control" type="text" name=tipoId [(ngModel)]="companyToBeCreated.identificacion">
+    </div>
+
+    <button class="btn btn-primary">Create</button>
+
+  </form>
 </div>
 
-<form (submit)="createCompany()">
+<div class="compsList">
+  <br>
+  <h3>Companies:</h3>
+  {{theUser.activeComp}}
+  <br>
+  <div class="d-flex" *ngFor="let company of companies">
 
-  <div class="form-group">
-    <label for="nombre">Name</label>
-    <input class="form-control" type="text" name="nombre" [(ngModel)]="companyToBeCreated.nombre">
+    <!-- buttons to select, inactive for currectly selected company -->
+    <div class="fs">
+      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-primary">Select</button>
+      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-primary"
+        disabled>Select</button>
+    </div>
+
+    <!--  buttons to activate o deactivate -->
+    <div class="fs">
+      <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Deactivate</button>
+      <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">Activate</button>
+    </div>
+
+    <div class="fs">
+      {{company.status}}
+    </div>
+
+    <div class="fs">
+      {{company.identificacion}}
+    </div>
+
+    <div class="fl">
+      {{company.nombre}}
+    </div>
+
+    <div class="fl">
+      {{company._id}}
+    </div>
+    <hr>
   </div>
-
-  <div class="form-group">
-    <label for="tipoId">Type of id</label>
-    <input class="form-control" type="text" name=tipoId [(ngModel)]="companyToBeCreated.identificacion.tipo">
-  </div>
-
-  <div class="form-group">
-    <label for="numeroId">Id number</label>
-    <input class="form-control" type="text" name="numeroId" [(ngModel)]="companyToBeCreated.identificacion.numero">
-  </div>
-
-  <button class="btn btn-primary">Create</button>
-
-</form>
-<hr>
-
-<h2>Company: Read</h2>
-<div *ngFor="let company of companies">
-  {{company.nombre}} | {{company.identificacion.tipo}} | {{company.identificacion.numero}} | {{company.status}} | {{company._id}}
-  |
-  <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Deactivate</button>
-  <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">Activate</button> |
-  <hr>
 </div>

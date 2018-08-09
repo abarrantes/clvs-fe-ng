@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 
 export class UserComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService) { }
 
   theUser: any = {}
   signupErrorMessage: any = {}
@@ -34,13 +33,13 @@ export class UserComponent implements OnInit {
   signup() {
     this.userService.signup(this.signUpInfo)
     this.signUpInfo = {};
-    // this.router.navigate(['/company']);
   }
 
   switchToLoginForm(){
     this.loginForm = true;
     this.signupForm = false;
   }
+
 
 
 
@@ -61,8 +60,6 @@ export class UserComponent implements OnInit {
   login() {
     this.userService.login(this.loginInfo)
     this.loginInfo = {}
-    // this.router.navigate(['/company']);
-
   }
 
   switchToSignupForm(){

@@ -9,7 +9,7 @@ import { UserService } from './services/user.service';
 
 export class AppComponent {
 
-  constructor(private userService:UserService){}
+  constructor(public userService:UserService){}
 
   theUserFromUser:any = {};
   
