@@ -134,6 +134,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   calcDocTotal(){
+    this.invoiceToBeCreated.total = 0
     this.invoiceToBeCreated.lines.forEach(line => {
       this.invoiceToBeCreated.total += line.lineTotal
     });
