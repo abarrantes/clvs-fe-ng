@@ -26,38 +26,74 @@
 <div *ngIf="itemList" class="itemListDiv">
   <br>
   <h3>Items:</h3>
-  Active comp:{{theUser.activeComp}} - UserId: {{theUser._id}}
-  <br>
-  <br>
+  <!-- HEADERS FOR LINES -->
 
-  <div class="d-flex" *ngFor="let item of items">
+  <div>
+    <hr>
 
-    <!--  buttons to activate or deactivate -->
-    <div class="fs">
-      <button (click)="toggleItemStatus(item._id)" *ngIf="item.status" class="btn btn-sm btn-danger">Deactivate</button>
-      <button (click)="toggleItemStatus(item._id)" *ngIf="!item.status" class="btn btn-sm btn-success">Activate</button>
+
+    <div class="d-flex">
+
+      <div class="fi">
+      </div>
+
+      <div class="fs">
+        Status
+      </div>
+
+      <div class="fs">
+        Number
+      </div>
+
+      <div class="fl">
+        Name
+      </div>
+
+      <div class="fl">
+        Id
+      </div>
+
     </div>
-
-    <div class="fs">
-      {{item.status}}
-    </div>
-
-    <div class="fs">
-      {{item.itemCode}}
-    </div>
-
-    <div class="fl">
-      {{item.itemName}}
-    </div>
-
-    <div class="fl">
-      {{item._id}}
-    </div>
-
   </div>
 
+
+  <!-- LINES -->
+  <div *ngFor="let item of items">
+    <hr>
+    <div class="d-flex">
+
+      <!--  buttons to activate or deactivate -->
+      <div class="fi">
+        <button (click)="toggleItemStatus(item._id)" *ngIf="item.status" class="btn btn-sm btn-danger">
+          <i class="material-icons md-24">highlight_off</i>
+        </button>
+        <button (click)="toggleItemStatus(item._id)" *ngIf="!item.status" class="btn btn-sm btn-success">
+          <i class="material-icons md-24">check_circle_outline</i>
+        </button>
+      </div>
+
+      <div class="fs">
+        {{item.status}}
+      </div>
+
+      <div class="fs">
+        {{item.itemCode}}
+      </div>
+
+      <div class="fl">
+        {{item.itemName}}
+      </div>
+
+      <div class="fl">
+        {{item._id}}
+      </div>
+
+    </div>
+  </div>
+  <hr>
+
   <br>
-  <button (click)="switchToCreateCustForm()" *ngIf="!createCustForm" class="btn btn-sm btn-success">Create item</button>
+  <button (click)="switchToCreateItemForm()" *ngIf="!createItemForm" class="btn btn-sm btn-success">Create item</button>
   <br>
   <br>
 

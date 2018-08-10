@@ -12,9 +12,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 
-//I am going to split this service in two, 
-//1. functionality to be shared globally
-//2. functionality specific to the user component
 
 export class UserService {
 
@@ -95,34 +92,36 @@ export class UserService {
       .map(res => res.json())
   }
 
-  assignComp(userId, compId) {
-    console.log(userId);
-    console.log(compId);
-    console.log(`${environment.apiBase}/api/auth/addCompany/${userId}`)
-    return this.http.put(`${environment.apiBase}/api/auth/addCompany/${userId}`, {compId}, { withCredentials: true })
-    .toPromise()
-    .then((res) => {
-      // this.theUserEmitter.next(null)
-      console.log("======== response from logout: ", res);
-    })
-    .catch((err) => {
-      console.log("======== error from logout: ", err)
-    })
-  }
+  // assignComp(userId, compId) {
+  //   console.log(userId);
+  //   console.log(compId);
+  //   console.log(`${environment.apiBase}/api/auth/addCompany/${userId}`)
+  //   return this.http.put(`${environment.apiBase}/api/auth/addCompany/${userId}`, { compId }, { withCredentials: true })
+  //     .toPromise()
+  //     .then((res) => {
+  //       console.log("======== response from assignComp: ", res);
+  //       this.theUserEmitter.next(res.json());
+  //     })
+  //     .catch((err) => {
+  //       console.log("======== error from assigCom: ", err)
+  //     })
+  // }
 
   selectComp(userId, compId) {
     console.log(userId);
     console.log(compId);
-    console.log(`${environment.apiBase}/api/auth/selectCompany/${userId}`)
-    return this.http.put(`${environment.apiBase}/api/auth/selectCompany/${userId}`, compId, { withCredentials: true })
-    // .toPromise()
-    // .then((res) => {
-    //   this.theUserEmitter.next(null)
-    //   console.log("======== response from logout: ", res);
-    // })
-    // .catch((err) => {
-    //   console.log("======== error from logout: ", err)
-    // })
+    console.log(`${environment.apiBase}/api/auth/selectCompany`)
+    return this.http.put(`${environment.apiBase}/api/auth/selectCompany`, {compId}, { withCredentials: true })
+    .toPromise()
+    .then((res) => {
+      // this.theUserEmitter.next(null)
+      console.log("======== response from selectComp: ", res);
+      this.checkLogin();
+
+    })
+    .catch((err) => {
+      console.log("======== error from selectComp: ", err)
+    })
   }
 
 
@@ -164,7 +163,6 @@ export class UserService {
         console.log("======== error from logout: ", err)
       })
   }
-
 
 
   ////////////////////// END USER SERVICE UTILITIES /////////////////////////////

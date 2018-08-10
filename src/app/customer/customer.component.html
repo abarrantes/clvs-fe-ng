@@ -23,38 +23,76 @@
   </form>
 </div>
 
-
 <div *ngIf="custList" class="custListDiv">
   <br>
   <h3>Customers:</h3>
-  Active comp:{{theUser.activeComp}} - UserId: {{theUser._id}}
-  <br>
-  <br>
-  <div class="d-flex" *ngFor="let customer of customers">
 
-    <!--  buttons to activate or deactivate -->
-    <div class="fs">
-      <button (click)="toggleCustomerStatus(customer._id)" *ngIf="customer.status" class="btn btn-sm btn-danger">Deactivate</button>
-      <button (click)="toggleCustomerStatus(customer._id)" *ngIf="!customer.status" class="btn btn-sm btn-success">Activate</button>
-    </div>
+  <!-- HEADERS FOR LINES -->
 
-    <div class="fs">
-      {{customer.status}}
-    </div>
+  <div>
+    <hr>
 
-    <div class="fs">
-      {{customer.identificacion}}
-    </div>
 
-    <div class="fl">
-      {{customer.nombre}}
-    </div>
+    <div class="d-flex">
 
-    <div class="fl">
-      {{customer._id}}
+      <div class="fi">
+      </div>
+
+      <div class="fs">
+        Status
+      </div>
+
+      <div class="fs">
+        Number
+      </div>
+
+      <div class="fl">
+        Name
+      </div>
+
+      <div class="fl">
+        Id
+      </div>
+
     </div>
-    
   </div>
+
+
+  <!-- LINES -->
+  <div *ngFor="let customer of customers">
+    <hr>
+    <div class="d-flex">
+
+      <!--  buttons to activate or deactivate -->
+      <div class="fi">
+        <button (click)="toggleCustomerStatus(customer._id)" *ngIf="customer.status" class="btn btn-sm btn-danger">
+          <i class="material-icons md-24">highlight_off</i>
+        </button>
+        <button (click)="toggleCustomerStatus(customer._id)" *ngIf="!customer.status" class="btn btn-sm btn-success">
+          <i class="material-icons md-24">check_circle_outline</i>
+        </button>
+      </div>
+
+      <div class="fs">
+        {{customer.status}}
+      </div>
+
+      <div class="fs">
+        {{customer.identificacion}}
+      </div>
+
+      <div class="fl">
+        {{customer.nombre}}
+      </div>
+
+      <div class="fl">
+        {{customer._id}}
+      </div>
+
+    </div>
+  </div>
+  <hr>
+
   <br>
   <button (click)="switchToCreateCustForm()" *ngIf="!createCustForm" class="btn btn-sm btn-success">Create customer</button>
   <br>

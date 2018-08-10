@@ -22,6 +22,10 @@ export class CompanyComponent implements OnInit {
     this.userService.theUserEmitter.subscribe(res => { this.theUser = res })
   }
 
+  // alreadyAssigned(compsAssigned, thisComp) {
+  //   return compsAssigned.includes(thisComp)
+  // }
+
   ////////////////////// COMPANIES LIST /////////////////////////////
   companies: Array<any>;
 
@@ -41,12 +45,12 @@ export class CompanyComponent implements OnInit {
       .catch(err => console.log("=====error from toggleCompanyStatus: ", err))
   }
 
-  switchToCreateCompForm(){
+  switchToCreateCompForm() {
     this.createCompForm = true;
     this.compsList = false;
   }
 
-  switchToCompsList(){
+  switchToCompsList() {
     this.createCompForm = false;
     this.compsList = true;
   }
@@ -75,6 +79,6 @@ export class CompanyComponent implements OnInit {
 
 
 
-  
+
   ////////////////////// END CREATE COMPANY FORM /////////////////////////////
 }

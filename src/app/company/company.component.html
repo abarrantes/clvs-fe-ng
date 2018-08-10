@@ -26,48 +26,84 @@
 <div *ngIf="compsList" class="compsListDiv">
   <br>
   <h3>Companies:</h3>
-  {{theUser.activeComp}} - {{theUser._id}}
-  <br><br>
 
-  <div class="d-flex" *ngFor="let company of companies">
+  <!-- HEADERS FOR LINES -->
 
-    <!-- buttons to select, inactive for currectly selected company -->
-    <div class="fs">
-      <button (click)="userService.selectComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-primary">Select</button>
-      <button (click)="userService.selectComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-primary"
-        disabled>Select</button>
-    </div>
-
-    <!--  buttons to activate or deactivate -->
-    <div class="fs">
-      <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Deactivate</button>
-      <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">Activate</button>
-    </div>
-
-    <!--  buttons to assign -->
-    <div class="fs">
-      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">Assign</button>
-      <button (click)="userService.assignComp(theUser._id,company._id)" *ngIf="!company.status" class="btn btn-sm btn-success"
-        disabled>Nothing</button>
-    </div>
-
-    <div class="fs">
-      {{company.status}}
-    </div>
-
-    <div class="fs">
-      {{company.identificacion}}
-    </div>
-
-    <div class="fl">
-      {{company.nombre}}
-    </div>
-
-    <div class="fl">
-      {{company._id}}
-    </div>
+  <div>
     <hr>
+    <div class="d-flex">
+
+      <div class="fi">
+      </div>
+
+      <div class="fi">
+      </div>
+
+      <div class="fs">
+        Status
+      </div>
+
+      <div class="fs">
+        Number
+      </div>
+
+      <div class="fl">
+        Name
+      </div>
+
+      <div class="fl">
+        Id
+      </div>
+
+
+    </div>
   </div>
+
+  <!-- LINES -->
+  <div *ngFor="let company of companies">
+    <hr>
+    <div class="d-flex">
+
+      <!-- buttons to select, inactive for currectly selected company -->
+      <div class="fi">
+        <button (click)="userService.selectComp(theUser._id,company._id)" *ngIf="company._id !== theUser.activeComp" class="btn btn-sm btn-primary">
+          <i class="material-icons md-24">exit_to_app</i>
+        </button>
+        <button *ngIf="company._id === theUser.activeComp" class="btn btn-sm btn-primary" disabled>
+          <i class="material-icons md-24">exit_to_app</i>
+        </button>
+      </div>
+
+      <!--  buttons to activate or deactivate -->
+      <div class="fi">
+        <button (click)="toggleCompanyStatus(company._id)" *ngIf="company.status" class="btn btn-sm btn-danger">
+          <i class="material-icons md-24">highlight_off</i>
+        </button>
+        <button (click)="toggleCompanyStatus(company._id)" *ngIf="!company.status" class="btn btn-sm btn-success">
+          <i class="material-icons md-24">check_circle_outline</i>
+        </button>
+      </div>
+
+      <div class="fs">
+        {{company.status}}
+      </div>
+
+      <div class="fs">
+        {{company.identificacion}}
+      </div>
+
+      <div class="fl">
+        {{company.nombre}}
+      </div>
+
+      <div class="fl">
+        {{company._id}}
+      </div>
+
+
+    </div>
+  </div>
+  <hr>
 
   <br>
   <button (click)="switchToCreateCompForm()" *ngIf="!createCompForm" class="btn btn-sm btn-success">Create company</button>

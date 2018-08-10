@@ -22,7 +22,7 @@ export class ItemComponent implements OnInit {
     this.getItems()
   }
 
-  ////////////////////// CUSTOMER LIST /////////////////////////////
+  ////////////////////// ITEM LIST /////////////////////////////
   items: Array<any>;
 
   getItems() {
@@ -41,14 +41,14 @@ export class ItemComponent implements OnInit {
       .catch(err => console.log("=====error from toggleItemStatus: ", err))
   }
 
-  switchToCreateCustForm() {
+  switchToCreateItemForm() {
     this.createItemForm = true;
     this.itemList = false;
   }
 
 
 
-  ////////////////////// END CUSTOMER LIST /////////////////////////////
+  ////////////////////// END ITEM LIST /////////////////////////////
 
 
   ////////////////////// CREATE ITEM FORM /////////////////////////////
@@ -61,7 +61,7 @@ export class ItemComponent implements OnInit {
       .then((res) => {
         this.getItems();
         this.createItemErrorMessage = "";
-        this.switchToCustList()
+        this.switchToItemList()
       })
       .catch(err => {
         this.createItemErrorMessage = err.json().message;
@@ -70,7 +70,7 @@ export class ItemComponent implements OnInit {
   }
 
 
-  switchToCustList() {
+  switchToItemList() {
     this.createItemForm = false;
     this.itemList = true;
   }

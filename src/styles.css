@@ -136,6 +136,10 @@ body{
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
+.fi {
+    width: 55px;
+}
+
 .fs {
     width: 100px;
 }

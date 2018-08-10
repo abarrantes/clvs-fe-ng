@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../services/invoice.service';
 import { UserService } from '../services/user.service';
+import { CustomerService } from '../services/customer.service';
+import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-invoice',
@@ -9,7 +11,11 @@ import { UserService } from '../services/user.service';
 })
 export class InvoiceComponent implements OnInit {
 
-  constructor(private invoiceService: InvoiceService, private userService: UserService) { }
+  constructor(
+    private invoiceService: InvoiceService,
+    private userService: UserService,
+    private customerService: CustomerService,
+    private itemService: ItemService) { }
 
   theUser: any = {}
 
@@ -19,8 +25,34 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.userService.theUserEmitter.subscribe(res => { this.theUser = res })
     this.getInvoices()
+    this.getCustomers()
+    this.getItems()
   }
 
+  /////////////////// TRAER LOS CUSTOMERS  ITEMS//////////////////
+
+  customers: Array<any>;
+
+  getCustomers() {
+    console.log("inside getcustomers")
+    this.customerService.getCustomersFromDb(this.theUser.activeComp)
+      .subscribe((customersFromDb) => {
+        this.customers = customersFromDb
+      })
+  }
+
+  items: Array<any>;
+
+  getItems() {
+    console.log("inside getitems")
+    this.itemService.getItemsFromDb()
+      .subscribe((itemsFromDb) => {
+        this.items = itemsFromDb
+      })
+  }
+
+
+  ///////////////////////END TRAER LOS CUSTOMERS Y ITEMS //////////////
 
   ////////////////////// INVOICE LIST /////////////////////////////
   invoices: Array<any>;
@@ -55,11 +87,11 @@ export class InvoiceComponent implements OnInit {
 
   invoiceToBeCreated: any =
     {
-      invoiceNumber: 0,
-      identificacion: "",
+      // invoiceNumber: 0,
+      // identificacion: "",
       nombre: "",
-      lines: [{ itemCode: "I002", itemName: "TEST", itemQuantity: 1, itemPrice: 10, lineTotal: 10 }],
       total: 0,
+      lines: [{ itemName: "", itemQuantity: 1, itemPrice: 0, lineTotal: 0 }],
     }
 
   createInvoiceErrorMessage: String = "";
@@ -78,15 +110,35 @@ export class InvoiceComponent implements OnInit {
         this.createInvoiceErrorMessage = err.json().message;
       })
     this.invoiceToBeCreated =
-    {
-      invoiceNumber: 0,
-      identificacion: "",
-      nombre: "",
-      lines: [{ itemCode: "I002", itemName: "TEST", itemQuantity: 1, itemPrice: 10, lineTotal: 10 }],
-      total: 0,
-    }
+      {
+        // invoiceNumber: 0,
+        // identificacion: "",
+        nombre: "",
+        total: 0,
+        lines: [{ itemName: "", itemQuantity: 1, itemPrice: 0, lineTotal: 0 }],
+      }
     this.switchToInvoiceList()
   }
+
+  pushLineIntoLines() {
+    this.invoiceToBeCreated.lines.push(
+      { itemName: "", itemQuantity: 1, itemPrice: 0, lineTotal: 0 }
+    )
+  }
+
+  calcTotals() {
+    this.invoiceToBeCreated.lines.forEach(line => {
+      line.lineTotal = line.itemPrice * line.itemQuantity
+    });
+    this.calcDocTotal()
+  }
+
+  calcDocTotal(){
+    this.invoiceToBeCreated.lines.forEach(line => {
+      this.invoiceToBeCreated.total += line.lineTotal
+    });
+  }
+
 
   switchToInvoiceList() {
     this.createInvoiceForm = false;
