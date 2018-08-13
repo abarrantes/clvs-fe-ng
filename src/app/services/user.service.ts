@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 
 export class UserService {
 
-
   theUserEmitter = new BehaviorSubject(null);
 
   constructor(private http: Http, private router: Router) { }
